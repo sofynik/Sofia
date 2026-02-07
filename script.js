@@ -1,34 +1,33 @@
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
     let sims = document.querySelector('.button')
-    sims.addEventListener('click', () =>{
+    sims.addEventListener('click', () => {
         alert("Вы загрузили вирус")
     })
-    
-    let camera = document.querySelector('.camera')
+
+    const camera = document.querySelector('.camera')
+
     camera.addEventListener('click', () => {
-        interval1 = setInterval(() => {         
-            camera.src = 'assets/camera_first_flash.png'
-            clearInterval(interval1)
-            interval2 = setInterval(()=> {
-                camera.src = 'assets/camera_second_flash.png'
-                clearInterval(interval2)
-                interval3 = setInterval(()=> {
-                    camera.src = 'assets/camera_first_flash.png'
-                    clearInterval(interval3)
-                    interval4 = setInterval(()=> {
-                        camera.src = 'assets/camera_second_flash.png'
-                        clearInterval(interval4)
-                        interval5 = setInterval(() => {
-                            camera.src = 'assets/camera.png'
-                            clearInterval(interval)
-                        })
-                    }, 250)
-                }, 250)
-            }, 250)
+        const frames = [
+            'assets/camera_first_flash.png',
+            'assets/camera_second_flash.png',
+            'assets/camera_first_flash.png',
+            'assets/camera_second_flash.png',
+            'assets/camera.png'
+        ]
+
+        let i = 0
+
+        const interval = setInterval(() => {
+            camera.src = frames[i]
+            i++
+
+            if (i >= frames.length) {
+                clearInterval(interval)
+            }
         }, 250)
     })
 
-   
+
     const images = [
         "assets/cat1.png",
         "assets/cat2.png",
@@ -45,59 +44,64 @@ document.addEventListener('DOMContentLoaded', () =>{
     const img = document.querySelector(".cats")
 
     img.addEventListener("click", () => {
-        console.log('jnjn')
-        index++ 
+        index++
         if (index >= images.length) {
             index = 0
         }
         img.src = images[index];
     });
 
+    const list = document.querySelector(".list");
+    const items = Array.from(document.querySelectorAll(".item"));
+    const player = new Audio();
+
+    list.addEventListener("click", (e) => {
+        const clickedItem = e.target.closest(".item");
+        if (!clickedItem) return;
+
+        const activePos = Number(clickedItem.dataset.pos);
+
+        if (activePos === 0) {
+            player.src = clickedItem.dataset.track;
+        }
+
+        player.play()
+
+        if (activePos === -2 || activePos === 2) return;
 
 
-    const state = {};
-    const carouselList = document.querySelector('.carousel__list');
-    const carouselItems = document.querySelectorAll('.carousel__item');
-    const elems = Array.from(carouselItems);
+        items.forEach((item) => {
+            const currentPos = Number(item.dataset.pos);
+            item.dataset.pos = getPos(currentPos, activePos);
+        });
 
-    carouselList.addEventListener('click', function (event) {
-    var newActive = event.target;
-    var isItem = newActive.closest('.carousel__item');
-
-    if (!isItem || newActive.classList.contains('carousel__item_active')) {
-        return;
-    };
-    
-    update(newActive);
+        const activeItem = items.find(i => Number(i.dataset.pos) === 0);
+        player.src = activeItem.dataset.track;
+        player.play();
     });
 
-    const update = function(newActive) {
-    const newActivePos = newActive.dataset.pos;
+    function getPos(current, active) {
+        const diff = current - active;
 
-    const current = elems.find((elem) => elem.dataset.pos == 0);
-    const prev = elems.find((elem) => elem.dataset.pos == -1);
-    const next = elems.find((elem) => elem.dataset.pos == 1);
-    const first = elems.find((elem) => elem.dataset.pos == -2);
-    const last = elems.find((elem) => elem.dataset.pos == 2);
-    
-    current.classList.remove('carousel__item_active');
-    
-    [current, prev, next, first, last].forEach(item => {
-        var itemPos = item.dataset.pos;
+        if (Math.abs(diff) > 2) return -current;
 
-        item.dataset.pos = getPos(itemPos, newActivePos)
-    });
-    };
-
-    const getPos = function (current, active) {
-    const diff = current - active;
-
-    if (Math.abs(current - active) > 2) {
-        return -current
+        return diff;
     }
 
-    return diff;
-    }
+    const imagesl = [
+        "assets/san.png",
+        "assets/kur.jpg",
+        "assets/sakhalin.jpg"
+    ]
+
+    let indexx = 0
+
+    const block = document.querySelector(".second_widget")
+
+    block.addEventListener("click", () => {
+        indexx = (indexx + 1) % imagesl.length
+        block.style.backgroundImage = `url(${imagesl[indexx]})`
+    })
 
 
 })
