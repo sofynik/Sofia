@@ -5,18 +5,19 @@ body{
     margin: 0;
     box-sizing: border-box;
     font-family: "Rubik Spray Paint", system-ui;
+    overflow-x: hidden;
+    background-color: #F3B3C1;
 }
 .first_section{
     height: 720px;
-    width: 1440px;
     background-color: #96AC7D;
 }
 .second_section{
-    height: 720px;
-    width: 1440px;
+    height: 520px;
     background-color: #F3B3C1;
     display: flex;
     flex-direction: column;
+    padding-bottom: 50px;
 
 }
 .sec{
@@ -60,7 +61,11 @@ body{
 }
 .second_widget{
     height: 253px;
-    width: 427px;    
+    width: 427px;
+    background-image: url("assets/sakhalin.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
 }
 .third_widget{
     height: 604px;
@@ -133,13 +138,44 @@ body{
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 0px;
-    width: 150px;
-    height: 250px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.5);
+    width: 450px;
+    height: 450px;
+    border-radius: 40px;
     position: absolute;
-    transition: all .3s ease-in;
+    transition:
+            transform .8s ease-in,
+            opacity .3s ease-in;
+
+    &:nth-child(1) {
+        background-image: url("assets/monetochka.png");
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+    }
+    &:nth-child(2) {
+        background-image: url("assets/yunglean.jpg");
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+    }
+    &:nth-child(3) {
+        background-image: url("assets/savage21.jpg");
+        background-size: cover;
+        cursor: pointer;
+        background-position: center;
+    }
+    &:nth-child(4) {
+        background-image: url("assets/noizemc.jpg");
+        background-size: cover;
+        cursor: pointer;
+        background-position: center;
+    }
+    &:nth-child(5) {
+        background-image: url("assets/huggy.png");
+        background-size: cover;
+        cursor: pointer;
+        background-position: center;
+    }
 }
 .list {
     display: flex;
@@ -151,38 +187,34 @@ body{
     perspective: 300px;
 }
 
-
-    
 [data-pos="0"] {
-  z-index: 5;
+    z-index: 5;
 }
-    
+
 [data-pos="-1"],[data-pos="1"] {
-      opacity: 0.7;
-      filter: blur(1px) grayscale(10%);
+    filter: blur(1px) grayscale(10%);
 }
-    
+
 [data-pos="-1"] {
-      transform: translateX(-40%) scale(.9);
-      z-index: 4;
+    transform: translateX(-100%) scale(.9);
+    z-index: 4;
 }
-    
+
 [data-pos="1"] {
-      transform: translateX(40%) scale(.9);
-      z-index: 4;
+    transform: translateX(100%) scale(.9);
+    z-index: 4;
 }
-    
+
 [data-pos="-2"], [data-pos="2"] {
-      opacity: 0.4;
-      filter: blur(3px) grayscale(20%);
+    filter: blur(3px) grayscale(20%);
 }
-    
+
 [data-pos="-2"] {
-  transform: translateX(-70%) scale(.8);
-  z-index: 3;
+    transform: translateX(-195%) scale(.8);
+    z-index: 3;
 }
-    
+
 [data-pos="2"] {
-  transform: translateX(70%) scale(.8);
-  z-index: 3;
+    transform: translateX(195%) scale(.8);
+    z-index: 3;
 }
